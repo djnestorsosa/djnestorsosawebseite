@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ Nestor Sosa – Hochzeits- & Event-DJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --card: #181818;
+      --gold: #c9a84c;
+      --gold-light: #e8c97e;
+      --white: #f5f2ec;
+      --muted: #888;
+      --accent: #c9a84c;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 3rem;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+      backdrop-filter: blur(2px);
+      transition: background 0.4s;
+    }
+    nav.scrolled { background: rgba(10,10,10,0.97); }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-toggle span { width: 24px; height: 1.5px; background: var(--white); transition: 0.3s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      background: var(--black);
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,168,76,0.08) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 80% at 10% 80%, rgba(201,168,76,0.05) 0%, transparent 60%);
+    }
+
+    /* Vinyl record decoration */
+    .vinyl {
+      position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
+      width: 520px; height: 520px; border-radius: 50%;
+      background: repeating-radial-gradient(circle at center,
+        #1a1a1a 0px, #1a1a1a 2px, #111 2px, #111 6px);
+      opacity: 0.35;
+      animation: spin 30s linear infinite;
+    }
+    .vinyl::after {
+      content: '';
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px; height: 100px; border-radius: 50%;
+      background: radial-gradient(circle, #c9a84c 0%, #8a6a1e 60%, #1a1a1a 65%);
+    }
+    @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 700px; padding: 2rem 3rem;
+    }
+
+    .hero-tag {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-tag::before {
+      content: ''; display: block;
+      width: 36px; height: 1px; background: var(--gold);
+    }
+
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 8rem);
+      line-height: 0.92;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .hero-name span { color: var(--gold); }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      background: var(--gold); color: var(--black);
+      padding: 0.85rem 2rem;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .hero-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .hero-cta::after { content: '→'; font-size: 1rem; }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 6rem 3rem; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .section-label::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1; letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--dark); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-placeholder {
+      width: 100%; aspect-ratio: 3/4;
+      background: var(--card);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 1rem;
+      color: var(--muted); font-size: 0.8rem; letter-spacing: 0.1em;
+      border: 1px solid #2a2a2a;
+      position: relative; overflow: hidden;
+    }
+    .about-img-placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(201,168,76,0.04) 100%);
+    }
+    .about-img-placeholder .placeholder-icon { font-size: 3rem; opacity: 0.2; }
+    .about-img-placeholder p { text-align: center; line-height: 1.6; opacity: 0.5; }
+
+    .about-frame {
+      position: absolute; top: -12px; left: -12px; right: 12px; bottom: 12px;
+      border: 1px solid var(--gold); opacity: 0.3; pointer-events: none;
+    }
+
+    .about-text p {
+      color: #aaa; line-height: 1.9; font-size: 0.95rem; margin-bottom: 1.2rem;
+    }
+    .about-text p strong { color: var(--white); font-weight: 500; }
+
+    /* ── PROCESS ── */
+    #process { background: var(--black); }
+    .steps {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: 3rem;
+    }
+    .step {
+      background: var(--card);
+      padding: 2.5rem 2rem;
+      position: relative; overflow: hidden;
+      transition: background 0.3s;
+    }
+    .step:hover { background: #1e1e1e; }
+    .step::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .step:hover::before { opacity: 1; }
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem; color: var(--gold); opacity: 0.15;
+      line-height: 1; margin-bottom: 0.5rem;
+    }
+    .step h3 {
+      font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.8rem;
+    }
+    .step p { color: var(--muted); font-size: 0.88rem; line-height: 1.7; }
+
+    /* ── EVENTS ── */
+    #events { background: var(--dark); }
+    .events-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .event-card {
+      background: var(--card);
+      padding: 2.5rem 2rem;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .event-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .event-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+    .event-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem; letter-spacing: 0.05em;
+      color: var(--white); margin-bottom: 0.8rem;
+    }
+    .event-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.7; }
+
+    /* ── MUSIC ── */
+    #music { background: var(--black); }
+    .music-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .music-text p { color: #aaa; line-height: 1.9; font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .playlists { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 2rem; }
+    .playlist-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--card);
+      border-left: 2px solid var(--gold);
+      font-size: 0.85rem; color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .playlist-item::before { content: '♪'; color: var(--gold); font-size: 1rem; }
+
+    .music-right { padding-top: 1rem; }
+    .music-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-style: italic;
+      line-height: 1.3; color: var(--white);
+      border-left: 3px solid var(--gold);
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--dark); }
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .review {
+      background: var(--card);
+      padding: 2rem;
+      position: relative;
+    }
+    .review::before {
+      content: '"';
+      position: absolute; top: 1rem; right: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem; color: var(--gold); opacity: 0.1;
+      line-height: 1;
+    }
+    .stars { color: var(--gold); font-size: 0.8rem; letter-spacing: 0.15em; margin-bottom: 1rem; }
+    .review p { color: #bbb; font-style: italic; line-height: 1.7; font-size: 0.9rem; margin-bottom: 1.2rem; }
+    .reviewer { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+    .reviewer span { color: var(--muted); font-weight: 300; text-transform: none; letter-spacing: 0; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--black); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 5rem; align-items: start;
+    }
+    .contact-info { padding-top: 1rem; }
+    .contact-info p { color: #aaa; line-height: 1.9; margin-bottom: 2rem; }
+    .contact-detail {
+      display: flex; align-items: flex-start; gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .contact-detail-icon {
+      width: 36px; height: 36px; border: 1px solid #2a2a2a;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0; color: var(--gold);
+    }
+    .contact-detail-text { font-size: 0.88rem; color: #aaa; line-height: 1.5; }
+    .contact-detail-text strong { color: var(--white); display: block; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.2rem; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--card); border: 1px solid #222;
+      color: var(--white); padding: 0.85rem 1rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 300;
+      outline: none; transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+
+    .submit-btn {
+      background: var(--gold); color: var(--black);
+      border: none; padding: 1rem 2.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.25s, transform 0.2s;
+      align-self: flex-start;
+    }
+    .submit-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #070707;
+      padding: 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+      border-top: 1px solid #1a1a1a;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: 0.1em; color: var(--gold);
+    }
+    .footer-copy { font-size: 0.75rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── DIVIDER ── */
+    .gold-line {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.3;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10,10,10,0.97); align-items: center; justify-content: center; gap: 2.5rem; }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.2rem; }
+      .nav-toggle { display: flex; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid, .music-inner, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .events-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .vinyl { display: none; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .steps { grid-template-columns: 1fr; }
+      .hero-content { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">DJ Nestor Sosa</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeMenu()">Über mich</a></li>
+    <li><a href="#process" onclick="closeMenu()">Ablauf</a></li>
+    <li><a href="#events" onclick="closeMenu()">Events</a></li>
+    <li><a href="#music" onclick="closeMenu()">Musik</a></li>
+    <li><a href="#testimonials" onclick="closeMenu()">Bewertungen</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Kontakt</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="vinyl"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Hochzeits- & Event-DJ · Rhein-Neckar</div>
+    <h1 class="hero-name">Néstor<br><span>Sosa</span></h1>
+    <p class="hero-subtitle">Musik, die dein Fest unvergesslich macht.</p>
+    <a href="#contact" class="hero-cta">Jetzt anfragen</a>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap fade-in">
+        <div class="about-img-placeholder">
+          <div class="placeholder-icon">📷</div>
+          <p>Dein Foto kommt hier hin.<br>Einfach ersetzen.</p>
+        </div>
+        <div class="about-frame"></div>
+      </div>
+      <div class="about-text fade-in">
+        <div class="section-label">Über mich</div>
+        <h2 class="section-title">Hallo!<br>Schön, dass<br>du hier bist.</h2>
+        <p>Ich bin <strong>Néstor Sosa</strong> und DJ aus Leidenschaft seit meiner Jugend. Meine große Passion ist es, am DJ-Pult zu stehen, die perfekte musikalische Atmosphäre auf Veranstaltungen zu schaffen und das Feiern der Gäste hautnah mitzuerleben.</p>
+        <p>Das Schönste an einer Veranstaltung ist es, Musik zu hören, die einen einfach mitreißt. Mein Ziel ist es, genau diese Atmosphäre auf deiner Veranstaltung zu schaffen. Ich arbeite eng mit dir zusammen, um eine unvergessliche Feier zu planen und zu gestalten.</p>
+        <p><strong>Unkompliziert, zuverlässig und garantiert ein Partyerfolg</strong> – wenn du mich buchst, bekommst du nicht nur einen professionellen und leidenschaftlichen DJ, sondern auch deinen persönlichen Dienstleister.</p>
+        <p>Pünktlichkeit und Verlässlichkeit sind für mich ebenso wichtig wie fachliche Kompetenz. Von unserem persönlichen Vorab-Gespräch bis zur letzten Minute der Veranstaltung kümmere ich mich um alles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- ── PROCESS ── -->
+<section id="process">
+  <div class="container">
+    <div class="section-label fade-in">So funktioniert es</div>
+    <h2 class="section-title fade-in">Step by Step<br>zum perfekten Event</h2>
+    <div class="steps">
+      <div class="step fade-in">
+        <div class="step-num">01</div>
+        <h3>Anfrage</h3>
+        <p>Kontaktiere mich über das Formular. Ich brauche nur Datum, Ort und Art deines Events – fertig.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">02</div>
+        <h3>Kennlern-Gespräch</h3>
+        <p>Wir treffen uns persönlich. Du erzählst mir deine Wünsche – ich teile meine Erfahrungen mit dir.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">03</div>
+        <h3>Angebot</h3>
+        <p>Nach dem Gespräch erhältst du ein maßgeschneidertes, unverbindliches Angebot mit allen Details.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">04</div>
+        <h3>Bestätigung</h3>
+        <p>Du bist zufrieden? Super – du erhältst meine Zusage per E-Mail und dein Termin ist gesichert.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">05</div>
+        <h3>Endgespräch</h3>
+        <p>Spätestens 2 Wochen vorher sprechen wir erneut. Wir machen den finalen Planungscheck.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">06</div>
+        <h3>¡Música Maestro!</h3>
+        <p>Am Tag der Feier bin ich 90 Minuten vorher vor Ort, baue diskret auf – und dann geht die Party los.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- ── EVENTS ── -->
+<section id="events">
+  <div class="container">
+    <div class="section-label fade-in">Meine Events</div>
+    <h2 class="section-title fade-in">Für jeden Anlass<br>die richtige Musik</h2>
+    <div class="events-grid">
+      <div class="event-card fade-in">
+        <div class="event-icon">💍</div>
+        <h3>Hochzeiten</h3>
+        <p>Die Hochzeit ist der wohl schönste Tag im Leben. Bei Hochzeitsfeiern stehen für mich detaillierte Planung und Spontanität im Vordergrund. Gänsehaut beim Brautpaar mit dem richtigen Song – das ist mein Anspruch.</p>
+      </div>
+      <div class="event-card fade-in">
+        <div class="event-icon">🎂</div>
+        <h3>Geburtstage</h3>
+        <p>Egal ob 18, 30, 50 oder 60 – es gibt immer einen Grund zu feiern! Familie, Freunde, Bekannte und Kollegen wollen stimmungsvoll feiern. Ich spiele immer die passende Musik dazu.</p>
+      </div>
+      <div class="event-card fade-in">
+        <div class="event-icon">🏢</div>
+        <h3>Firmenevents</h3>
+        <p>Entspannte Lounge-Musik für Produktpräsentationen, Party-Sound für die Messe oder Sommerhits für das Firmenevent. Abgestimmt auf das Publikum – garantiert gute Laune.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- ── MUSIC ── -->
+<section id="music">
+  <div class="container">
+    <div class="music-inner">
+      <div class="music-text fade-in">
+        <div class="section-label">Musik</div>
+        <h2 class="section-title">¡Música<br>Maestro!</h2>
+        <p>Ich passe die Musik und Rhythmen genau an dein Event an und lasse meinen persönlichen Musikgeschmack dabei hinten anstehen. Mein Fokus liegt voll und ganz darauf, für eine gute Stimmung zu sorgen.</p>
+        <p>Jeder Event ist eine neue Herausforderung – insbesondere wenn verschiedene Generationen aufeinandertreffen. Mit meinem Gespür für die Situation begeistere ich sowohl junge als auch ältere Gäste.</p>
+        <p><strong>Musikwünsche sind für mich ein MUST HAVE.</strong> Der Moment, wo dein Lieblingssong läuft, ist der Startschuss zum Tanzen.</p>
+
+        <div class="playlists">
+          <div class="playlist-item">Pop & Charts – Aktuell &amp; Zeitlos</div>
+          <div class="playlist-item">Latin & Reggaeton</div>
+          <div class="playlist-item">80s, 90s &amp; 2000s Classics</div>
+          <div class="playlist-item">Deutsch &amp; Schlager</div>
+          <div class="playlist-item">Lounge &amp; Hintergrundmusik</div>
+        </div>
+      </div>
+      <div class="music-right fade-in">
+        <div class="music-quote">
+          „Es gibt nichts Schöneres, als wenn alle gemeinsam einen unvergesslichen Abend erleben."
+        </div>
+        <div class="about-img-placeholder" style="aspect-ratio: 4/3;">
+          <div class="placeholder-icon">🎧</div>
+          <p>Foto vom DJ-Setup<br>hier einfügen</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- ── TESTIMONIALS ── -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-label fade-in">Bewertungen</div>
+    <h2 class="section-title fade-in">Was meine<br>Kunden sagen</h2>
+    <div class="reviews-grid">
+      <div class="review fade-in">
+        <div class="stars">★★★★★</div>
+        <p>Hi Nestor. Vielen, vielen Dank dass Du für uns auf unserer Hochzeit aufgelegt hast. War super mit Dir!!! Lob an Dich!</p>
+        <div class="reviewer">Stephan Roedel <span>– Karlsruhe</span></div>
+      </div>
+      <div class="review fade-in">
+        <div class="stars">★★★★★</div>
+        <p>Gracias por la gran noche. Estuvo espectacular ya era hora – no por hacerte el creído pero hace mucho que no bailaba tanto con tan nueva música.</p>
+        <div class="reviewer">Katy Baier <span>– Heidelberg, Canoa Club</span></div>
+      </div>
+      <div class="review fade-in">
+        <div class="stars">★★★★★</div>
+        <p>Es war eine ganz tolle Hochzeitsparty mit einem super DJ – einfach wunderbar.</p>
+        <div class="reviewer">Martina Riehl <span>– Frankfurt</span></div>
+      </div>
+      <div class="review fade-in">
+        <div class="stars">★★★★★</div>
+        <p>Hey Nestor, Du hast so eine tolle Stimmung gemacht, das war unglaublich. Ich habe tausende Blasen an den Füßen vor so viel Tanzen!</p>
+        <div class="reviewer">Reyhan Semling <span>– Walldorf, SAP D-KOM 2019</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info fade-in">
+        <div class="section-label">Kontakt</div>
+        <h2 class="section-title">Lass uns<br>reden.</h2>
+        <p>Du planst eine Hochzeit, einen Geburtstag oder ein Firmenevent? Ich freue mich auf deine Nachricht und melde mich schnellstmöglich bei dir.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <div class="contact-detail-text">
+            <strong>Telefon</strong>
+            <a href="tel:+491776284593" style="color:#aaa; text-decoration:none;">0177 628 4593</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉</div>
+          <div class="contact-detail-text">
+            <strong>E-Mail</strong>
+            <a href="mailto:info@djnestorsosa.de" style="color:#aaa; text-decoration:none;">info@djnestorsosa.de</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-text">
+            <strong>Standort</strong>
+            67141 Neuhofen (Rhein-Neckar)
+          </div>
+        </div>
+      </div>
+      <div class="fade-in">
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vorname</label>
+              <input type="text" placeholder="Max" required />
+            </div>
+            <div class="form-group">
+              <label>Nachname</label>
+              <input type="text" placeholder="Mustermann" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>E-Mail</label>
+            <input type="email" placeholder="deine@email.de" required />
+          </div>
+          <div class="form-group">
+            <label>Telefon (optional)</label>
+            <input type="tel" placeholder="0171 000 0000" />
+          </div>
+          <div class="form-group">
+            <label>Art des Events</label>
+            <select>
+              <option value="">Bitte wählen …</option>
+              <option>Hochzeit</option>
+              <option>Geburtstag</option>
+              <option>Firmenevent</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Datum</label>
+              <input type="date" />
+            </div>
+            <div class="form-group">
+              <label>Ort</label>
+              <input type="text" placeholder="Stadt / Location" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Nachricht</label>
+            <textarea placeholder="Erzähl mir von deinem Event …"></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Anfrage senden →</button>
+          <p id="form-msg" style="font-size:0.8rem; color: var(--gold); display:none; margin-top:0.5rem;">
+            Danke! Ich melde mich bald bei dir. 🎧
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">DJ Nestor Sosa</div>
+  <p class="footer-copy">© 2025 Néstor Sosa · 67141 Neuhofen</p>
+  <div class="footer-links">
+    <a href="#impressum">Impressum</a>
+    <a href="#datenschutz">Datenschutz</a>
+  </div>
+</footer>
+
+<!-- ── IMPRESSUM (hidden section) ── -->
+<section id="impressum" style="background: var(--dark); padding: 4rem 3rem;">
+  <div class="container" style="max-width: 700px;">
+    <div class="section-label">Rechtliches</div>
+    <h2 class="section-title" style="font-size: 2.5rem;">Impressum</h2>
+    <div style="color: #aaa; line-height: 1.9; font-size: 0.9rem; margin-top: 1.5rem;">
+      <p><strong style="color:var(--white);">Angaben gemäß § 5 TMG</strong></p>
+      <p style="margin-top:1rem;">Néstor Sosa<br>67141 Neuhofen<br>Deutschland</p>
+      <p style="margin-top:1rem;"><strong style="color:var(--white);">Kontakt</strong><br>
+      Telefon: 0177 628 4593<br>
+      E-Mail: info@djnestorsosa.de</p>
+      <p style="margin-top:1rem; font-size:0.8rem; color: var(--muted);">
+        Hinweis: Bitte ergänze hier deine vollständigen Impressumsangaben gemäß TMG (z.B. Steuer-ID falls vorhanden).
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="datenschutz" style="background: var(--black); padding: 4rem 3rem;">
+  <div class="container" style="max-width: 700px;">
+    <div class="section-label">Rechtliches</div>
+    <h2 class="section-title" style="font-size: 2.5rem;">Datenschutz&shy;erklärung</h2>
+    <div style="color: #aaa; line-height: 1.9; font-size: 0.9rem; margin-top: 1.5rem;">
+      <p><strong style="color:var(--white);">Verantwortlicher</strong></p>
+      <p style="margin-top:0.5rem;">Néstor Sosa · 67141 Neuhofen · info@djnestorsosa.de</p>
+      <p style="margin-top:1rem;"><strong style="color:var(--white);">Hosting</strong><br>
+      Diese Website wird über GitHub Pages gehostet (GitHub Inc., 88 Colin P Kelly Jr Street, San Francisco, CA 94107, USA). Beim Besuch dieser Seite kann GitHub Zugriffsdaten (IP-Adresse, Browsertyp, Uhrzeit) protokollieren. Weitere Infos: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" style="color:var(--gold);" target="_blank">GitHub Privacy Statement</a>.</p>
+      <p style="margin-top:1rem;"><strong style="color:var(--white);">Kontaktformular</strong><br>
+      Das Kontaktformular auf dieser Seite sendet Daten direkt per E-Mail. Es werden keine Daten auf Servern Dritter gespeichert.</p>
+      <p style="margin-top:1rem; font-size:0.8rem; color: var(--muted);">
+        Hinweis: Bitte ergänze diese Datenschutzerklärung mit einem Generator (z.B. datenschutz-generator.de) um alle gesetzlichen Anforderungen zu erfüllen.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-msg').style.display = 'block';
+    e.target.reset();
+  }
+</script>
+</body>
+</html>
